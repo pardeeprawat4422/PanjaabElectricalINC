@@ -26,38 +26,19 @@ export const  AddnewEmployee = () => {
              <div class="form-row pt-4">
                 <div class="form-group col-md-5 px-3">
                    <label for="exampleInputEmail1">Name</label>
-                   <input type="text" class="form-control" id="exampleInputtext"  placeholder="Enter your name" />                      
+                   <input type="text" class="form-control" id="exampleInputtext"  placeholder=" Name" />                      
                 </div>
                 <div class="form-group col-md-5 px-3">
-                   <label for="exampleInputlocation">Location</label>
-                   <input type="text" class="form-control" id="exampleInputlocation" placeholder="Enter your Location" />
+                   <label for="exampleInputlocation">Email</label>
+                   <input type="text" class="form-control" id="exampleInputlocation" placeholder="Email" />
                 </div>
                 <div class="form-group col-md-5 px-3">
-                   <label for="exampleFormControlSelect1">Description</label>
-                   <textarea class="form-control" aria-label="With textarea" placeholder="Enter your Description"></textarea>
+                   <label for="exampleFormControlSelect1">Phone</label>
+                   <textarea class="form-control" aria-label="With textarea" placeholder="Phone"></textarea>
                 </div>
                 <div class="form-group col-md-5 px-3">
-                   <label for="exampleFormControlSelect1">Special Note</label>
-                   <textarea class="form-control" aria-label="With textarea" placeholder="Enter your Special Note"></textarea>
-                </div>
-                <div class="form-group col-md-5 px-3">
-                   <label for="exampleInputEmail1">Start Date</label>
-                   <input type="date" class="form-control datepicker" id="exampleInputtext"  placeholder="Enter your Start Date" />                      
-                </div>
-                <div class="form-group col-md-5 px-3">
-                   <label for="exampleInputlocation">Start Time</label>
-                   <input type="time" class="form-control" id="exampleInputlocation" placeholder="Enter your Start Time" />
-                </div>
-                <div class="form-group  col-md-5 px-3">
-                   <label for="exampleFormControlSelect1">Assign To</label>
-                   <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Melissa Teasdale</option>
-                      <option>Melissa Teasdale</option>
-                   </select>
-                </div>
-                <div class="form-group col-md-5 px-3">
-                   <label for="exampleInputEmail1">Job Days</label>
-                   <input type="Days" class="form-control" id="exampleInputtext"  placeholder="Enter your Day" />                      
+                   <label for="exampleFormControlSelect1">Address</label>
+                   <textarea class="form-control" aria-label="With textarea" placeholder="Address"></textarea>
                 </div>
                 <div class="form-group submitbtn col-md-12">                       
                    <input type="submit" class="btn btn-primary py-2 my-3" value="Submit" />

@@ -1,7 +1,7 @@
 import React from 'react'
 import LeftSidebar from './LeftSidebar';
 
-export const  Currentlocation = () => {
+export const  JobLocation = () => {
   return (
     <section class="employee-dashboard d-flex">
     <LeftSidebar />
@@ -17,17 +17,17 @@ export const  Currentlocation = () => {
                </div>
             </div>
             <div class="mid-strip current-location-heading px-5 py-3">
-               <h3 class="font-weight-medium">Sign In Location</h3>
+               <h3 class="font-weight-medium">Job Location</h3>
             </div>
 			<div class="current-location px-4">
 			<form>
                         <div class="location-panel my-3">
-                           <p><b>Elly</b></p>
-                           <p>Surry, 945 Charleton Ave</p>                      
+                           <p><b>Kally</b></p>
+                           <p>Richmond Hill, 2092 Bayfield St</p>                      
                         </div>
                        <div class="location-panel my-3">
-                           <p><b>Samme</b></p>
-                           <p>Toronto, 706 Yonge Street</p>                      
+                           <p><b>Employe Name</b></p>
+                           <p>Noelville, 1346 Dry Pine Bay Rd </p>                      
                         </div>
                         
                      </form>

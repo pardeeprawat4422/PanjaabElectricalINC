@@ -9,7 +9,9 @@ import { EmployeeReports } from './Employee/EmployeeReports';
 import  EmployerReports  from './Employer/EmployerReports';
 import { LiveStatus }  from './Employee/LiveStatus';
 import { Currentlocation }  from './Employee/Currentlocation';
-
+import { JobLocation }  from './Employee/JobLocation';
+import { Notification }  from './Employee/Notification';
+import { AddnewJob } from './Employee/AddnewJob';
 function App() {
   return (
     <Router>
@@ -24,6 +26,9 @@ function App() {
           <Route path="/employerreports" element={<EmployerReports />} />
           <Route path="/livestatus" element={<LiveStatus />} />
           <Route path="/currentlocation" element={<Currentlocation />} />
+          <Route path="/jobLocation" element={<JobLocation />} />
+          <Route path="/notification" element={<Notification />} />
+          <Route path="/addnewJob" element={<AddnewJob />} />
         </Routes>
       </div>
     </Router>

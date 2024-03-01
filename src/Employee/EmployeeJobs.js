@@ -19,7 +19,7 @@ export const  EmployeeJobs = () => {
     <div class="mid-strip px-5 py-3">
        <h3 class="font-weight-medium">JOBS</h3>
        <div class="mid-side-strip">
-          <a href="/addnewemployee"  class="btn btn-primary px-4">+ Add New Job  </a>
+          <a href="/addnewJob"  class="btn btn-primary px-4">+ Add New Job  </a>
        </div>
     </div>
     <div class="form-dashboard  form-jobs px-5 py-3">
@@ -57,9 +57,9 @@ export const  EmployeeJobs = () => {
                 <td>Electrical Engineer</td>
                 <td> Ontario</td>
                 <td>House Plugs</td>
-                <td>3 march 2024</td>
-                <td>Start</td>
-                <td>Jeffy</td>
+                <td>Feb 01, 2024</td>
+                <td>Complete</td>
+                <td>1</td>
                 <td class="table-side-icon">
                    <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
                 </td>
@@ -68,9 +68,9 @@ export const  EmployeeJobs = () => {
                 <td>plumber</td>
                 <td>Edmonton</td>
                 <td>Install, repair, and maintain pipes</td>
-                <td>14 feb 2024</td>
-                <td>Progress</td>
-                <td>kanwar</td>
+                <td>Feb 05, 2024</td>
+                <td>Complete</td>
+                <td>5</td>
                 <td class="table-side-icon">
                    <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png" alt="icon" /></a>                
                 </td>
@@ -79,9 +79,9 @@ export const  EmployeeJobs = () => {
                 <td>Power Engineer</td>
                 <td>Toronto</td>
                 <td>repair</td>
-                <td>18 feb 2024</td>
+                <td>Feb 10, 2024</td>
                 <td>Complete</td>
-                <td>tim</td>
+                <td>1</td>
                 <td class="table-side-icon">
                    <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
                 </td>
@@ -90,31 +90,9 @@ export const  EmployeeJobs = () => {
                 <td>Technician</td>
                 <td>British Columbia</td>
                 <td>Lab Technicians, Dental Technicians</td>
-                <td>12 jan 2024</td>
-                <td>Complete</td>
-                <td>elan</td>
-                <td class="table-side-icon">
-                   <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
-                </td>
-             </tr>
-             <tr>
-                <td>Electrical Engineer</td>
-                <td>Montreal</td>
-                <td>can use whatever CMS you like, including WordPress</td>
-                <td>1 March 2024</td>
-                <td>Start</td>
-                <td>Harry</td>
-                <td class="table-side-icon">
-                   <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
-                </td>
-             </tr>
-             <tr>
-                <td>Power Engineer</td>
-                <td>Chetwynd</td>
-                <td>repair</td>
-                <td>28 Feb 2024</td>
-                <td>Progress</td>
-                <td>Sinc</td>
+                <td>Mar 01, 2024</td>
+                <td>In-Progress</td>
+                <td>3</td>
                 <td class="table-side-icon">
                    <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
                 </td>
