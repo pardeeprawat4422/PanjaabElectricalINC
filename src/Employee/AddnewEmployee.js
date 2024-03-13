@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-
+import api from '../api';
 import LeftSidebar from './LeftSidebar';
 
 export const AddnewEmployee = () => {
@@ -12,7 +12,7 @@ export const AddnewEmployee = () => {
   const [address, setAddress] = useState('');
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
     const errors = {};
@@ -31,26 +31,27 @@ export const AddnewEmployee = () => {
       errors.address = 'Address is required';
     }
     if (Object.keys(errors).length === 0) {
-      // Submit the form
-      console.log('Form submitted:', { name, email, phone, address });
-      // Reset form fields
-      setName('');
-      setEmail('');
-      setPhone('');
-      setAddress('');
-      setSubmitted(true);
-      setTimeout(() => {
-         navigate('/employeelist');
-       }, 4000);
-      
-
-    } else {
-      setErrors(errors);
-      setSubmitted(false);
+      try {
+        const response = await api.post('/addemployee', {
+          Emp_Name: name,
+          Emp_Phone: phone,
+          Emp_Email: email,
+          Emp_Address: address
+        });
+        console.log(response.data.message);
+        setSubmitted(true);
+        setTimeout(() => {
+          navigate('/employeelist');
+        }, 3000);
+      } catch (error) {
+        console.error('Error adding employee:', error);
+      }
     }
-
-  
-  };
+     else {
+      setErrors(errors);
+    
+    }
+ };
     
      
   return (

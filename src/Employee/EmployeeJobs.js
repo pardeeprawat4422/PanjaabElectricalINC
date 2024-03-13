@@ -1,130 +1,128 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import LeftSidebar from './LeftSidebar';
+import api from '../api';
 
-export const  EmployeeJobs = () => {
-  return (
-    <section class="employee-dashboard d-flex">
-    <LeftSidebar />
-    <div class="right-panel" id="right-panel">
-    <div class="top-strip px-5 py-2">
-       <div class="side-strip">
-          <span class="icon-img"> <img src="images/man-icon.png"  alt="image" /></span>
-          <p class="pb-0 mb-0 pl-3">Philomina</p>
-          <div id="menu-toggle" onclick="toggleSidebar">  
-              <span>|</span>   
-             <img src="images/menu_leftn.png" />
-          </div>
-       </div>
-    </div>
-    <div class="mid-strip px-5 py-3">
-       <h3 class="font-weight-medium">JOBS</h3>
-       <div class="mid-side-strip">
-          <a href="/addnewJob"  class="btn btn-primary px-4">+ Add New Job  </a>
-       </div>
-    </div>
-    <div class="form-dashboard  form-jobs px-5 py-3">
-       <form>
-          <div class="form-row">
-             <div class="form-group  col-sm-5 px-3 mb-0">
-                <label for="exampleFormControlSelect1">STATUS</label>
-                <select class="form-control ml-4" id="exampleFormControlSelect1">
-                   <option>All</option>
-                   <option>Completed</option>
-                   <option>In-progress</option>
-                </select>
-             </div>
-             <div class="col-sm-2 col-12">
-                <input type="submit" class="btn btn-dark w-100 h-100" value="Search" />
-             </div>
-          </div>
-       </form>
-    </div>
-    <div class="dashboard-table px-5 py-3">
-       <table class="table">
-          <thead class="thead-light">
-             <tr>
-                <th scope="col">Job Name</th>
-                <th scope="col">Job Location</th>
-                <th scope="col">Description</th>
-                <th scope="col">Special Note</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Employee</th>
-                <th scope="col">Edit</th>
-             </tr>
-          </thead>
-          <tbody>
-             <tr>
-                <td>Electrical Engineer</td>
-                <td> Ontario</td>
-                <td>House Plugs</td>
-                <td>45 BC, making it over 2000 years old.</td>
-                <td>Feb 01, 2024</td>
-                <td>Complete</td>
-                <td><a href="/workerlist" class="employee-list-num"  data-toggle="tooltip" data-placement="top" title="Employee List">3</a></td>
-                <td class="table-side-icon">
-                   <a  data-toggle="tooltip" data-placement="top" title="Edit Employee Job" href="/editjobemployee"><img src="images/Icons.png"  alt="icon" /></a>                
-                </td>
-             </tr>
-             <tr>
-                <td>plumber</td>
-                <td>Edmonton</td>
-                <td>Install, repair, and maintain pipes</td>
-                <td>45 BC, making it over 2000 years old.</td>
-                <td>Feb 05, 2024</td>
-                <td>Complete</td>
-                <td>4</td>
-                <td class="table-side-icon">
-                   <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png" alt="icon" /></a>                
-                </td>
-             </tr>
-             <tr>
-                <td>Power Engineer</td>
-                <td>Toronto</td>
-                <td>repair</td>
-                <td>Feb 10, 2024</td>
-                <td>45 BC, making it over 2000 years old.</td>
-                <td>Complete</td>
-                <td>4</td>
-                <td class="table-side-icon">
-                   <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
-                </td>
-             </tr>
-             <tr>
-                <td>Technician</td>
-                <td>British Columbia</td>
-                <td>Lab Technicians, Dental Technicians</td>
-                <td>45 BC, making it over 2000 years old.</td>
-                <td>Mar 01, 2024</td>
-                <td>In-Progress</td>
-                <td>4</td>
-                <td class="table-side-icon">
-                   <a data-toggle="modal" data-target="#exampleModalCenter"><img src="images/Icons.png"  alt="icon" /></a>                
-                </td>
-             </tr>
-          </tbody>
-       </table>
-       <nav aria-label="Page navigation example pt-4">
-          <ul class="pagination">
-             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-                </a>
-             </li>
-             <li class="page-item"><a class="page-link" href="#">1</a></li>
-             <li class="page-item"><a class="page-link" href="#">2</a></li>
-             <li class="page-item"><a class="page-link" href="#">3</a></li>
-             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-                </a>
-             </li>
-          </ul>
-       </nav>
-    </div>
- </div>
-</section>
-  )
-}
+export const EmployeeJobs = () => {
+    const [employeeToDelete, setEmployeeToDelete] = useState(null);
+    const [jobs, setJobs] = useState([]);
+
+    useEffect(() => {
+        fetchJobs();
+    }, []);
+
+    const fetchJobs = async () => {
+        try {
+            const response = await api.get('/jobslist');
+            setJobs(response.data.jobs);
+        } catch (error) {
+            console.error('Error fetching job list:', error);
+        }
+    };
+
+    const handleDelete = async (jobId) => {
+        try {
+            await api.delete(`/jobs/${jobId}`);
+            setJobs(jobs.filter(job => job.Job_Id !== jobId));
+            console.log('Job deleted successfully');
+        } catch (error) {
+            console.error('Error deleting job:', error);
+        }
+    };
+
+    return (
+        <section className="employee-dashboard d-flex">
+            <LeftSidebar />
+            <div className="right-panel" id="right-panel">
+                <div className="top-strip px-5 py-2">
+                    <div className="side-strip">
+                        <span className="icon-img"> <img src="images/man-icon.png" alt="image" /></span>
+                        <p className="pb-0 mb-0 pl-3">Philomina</p>
+                        <div id="menu-toggle" onClick="toggleSidebar">
+                            <span>|</span>
+                            <img src="images/menu_leftn.png" />
+                        </div>
+                    </div>
+                </div>
+                <div className="mid-strip px-5 py-3">
+                    <h3 className="font-weight-medium">JOBS</h3>
+                    <div className="mid-side-strip">
+                        <a href="/addnewJob" className="btn btn-primary px-4">+ Add New Job  </a>
+                    </div>
+                </div>
+                <div className="form-dashboard  form-jobs px-5 py-3">
+                    <form>
+                        <div className="form-row">
+                            <div className="form-group  col-sm-5 px-3 mb-0">
+                                <label>Serch by Status </label>
+                                <select className="form-control ml-4" id="exampleFormControlSelect1" >
+                                    <option>All</option>
+                                    <option>Completed</option>
+                                    <option>In-progress</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div className="dashboard-table px-5 py-3">
+                    <table className="table">
+                        <thead className="thead-light">
+                            <tr>
+                                <th scope="col">Job Name</th>
+                                <th scope="col">Job Location</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Special Note</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {jobs.map(job => (
+                                <tr key={job.id}>
+                                    <td>{job.Job_Title}</td>
+                                    <td>{job.Job_Location}</td>
+                                    <td>{job.Job_Description}</td>
+                                    <td>{job.Job_Notes}</td>
+                                    <td>{job.Job_Start_Date ? job.Job_Start_Date.substring(0, 10) : ''}</td>
+                                    <td>{job.Job_Status}</td>
+                                    <td><a href={`/workerlist/${job.Job_Id}`} className="employee-list-num" data-toggle="tooltip" data-placement="top" title="Employee List">{job.No_Of_Emp}</a></td>
+                                    <td className="table-side-icon">
+                                        <span>
+                                            <a href={`/editjobemployee/${job.Job_Id}`} data-toggle="tooltip" data-placement="top" title="Edit Employee Job"><img src="images/Icons.png" alt="icon" /></a>
+                                        </span>
+                                        <span data-toggle="modal" data-target="#exampleModalCenter2">
+                                            <a data-placement="top" data-toggle="tooltip" title="Delete Employee" onClick={() => setEmployeeToDelete(job)}>
+                                                <img src="images/trash-can-alt-2.png" alt="icon" />
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {/* Pagination and other elements */}
+                </div>
+            </div>
+            <div className="modal fade delete-modal bd-example-modal-lg" id="exampleModalCenter2" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><i className="fa-solid fa-xmark"></i></span>
+                            </button>
+                        </div>
+                        <div className="modal-body pt-5">
+                            <h3 className="text-center">Are you sure you want to delete {employeeToDelete ? `Em_${employeeToDelete.Job_Id}` : 'this employee'}?</h3>
+                            <p>This will delete this employee Permanently. You cannot Undo this action.</p>
+                            <div className="modal-deletebtn text-center">
+                                <button type="button" className="btn btn-outline-dark" data-dismiss="modal">No</button>
+                                <button type="button" className="btn btn-primary ml-2" data-dismiss="modal" onClick={() => handleDelete(employeeToDelete ? employeeToDelete.Job_Id : null)}>Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};

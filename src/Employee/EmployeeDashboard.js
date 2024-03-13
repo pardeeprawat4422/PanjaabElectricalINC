@@ -1,9 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import LeftSidebar from './LeftSidebar';
+import api from '../api';
 
-export const  EmployeeDashboard = () => {
 
+export const EmployeeDashboard = () => {
+   const [employees, setEmployees] = useState([]);
+   const [searchName, setSearchName] = useState('');
+   const [searchPhone, setSearchPhone] = useState('');
+   const [errorMessage, setErrorMessage] = useState('');
+   const [employeeToDelete, setEmployeeToDelete] = useState(null);
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const response = await api.get(`/employees?name=${searchName}&phone=${searchPhone}`);
+            console.log(response.data);
+            setEmployees(response.data.employees);
+            setErrorMessage(''); // Reset error message if data is successfully fetched
+         } catch (error) {
+            console.error('Error fetching employees:', error);
+            setErrorMessage('No Record Found.'); // Set error message if there's an error
+         }
+      };
 
+      fetchData(); // Call fetchData initially and whenever search criteria change
+   }, [searchName, searchPhone]);
+  
+   
+
+    const fetchData = async () => {
+       try {
+         const response = await api.get(`/employees?name=${searchName}&phone=${searchPhone}`);
+         console.log(response.data);
+         setEmployees(response.data.employees);
+         setErrorMessage(''); // Reset error message if data is successfully fetched
+       } catch (error) {
+         console.error('Error fetching employees:', error);
+         setErrorMessage('Failed to fetch employees. Please try again.'); // Set error message if there's an error
+       }
+     };
+  
+
+ const handleDelete = async (employeeId) => {
+    try {
+      await api.delete(`/employees/${employeeId}`);
+      // Filter out the deleted employee from the state
+      setEmployees(employees.filter(employee => employee.Emp_ID !== employeeId));
+      console.log('Employee deleted successfully');
+    } catch (error) {
+      console.error('Error deleting employee:', error);
+    }
+  };
   return (
     <section class="employee-dashboard d-flex">
         <LeftSidebar />
@@ -25,21 +71,32 @@ export const  EmployeeDashboard = () => {
                </div>
             </div>
             <div class="form-dashboard px-5 py-3">
-               <form>
-                  <div class="form-row">
-                     <div class="col-md-5 col-6">
-                        <input type="text" class="form-control" placeholder="Name" />
+            <form onSubmit={(e) => { e.preventDefault(); fetchData(); }}>
+                  <div className="form-row">
+                     <div className="col-md-5 col-6">
+                        <input 
+                           type="text" 
+                           className="form-control" 
+                           placeholder="Name" 
+                           value={searchName} 
+                           onChange={(e) => setSearchName(e.target.value)} // Update searchName state
+                        />
                      </div>
-                     <div class="col-md-5 col-6">
-                        <input type="tel" class="form-control" placeholder="Phone" />
-                     </div>
-                     <div class="col-md-2 col-12">
-                        <input type="submit" class="btn btn-dark w-100 h-100" value="Search" />
+                     <div className="col-md-5 col-6">
+                        <input 
+                           type="tel" 
+                           className="form-control" 
+                           placeholder="Phone" 
+                           value={searchPhone} 
+                           onChange={(e) => setSearchPhone(e.target.value)} // Update searchPhone state
+                        />
                      </div>
                   </div>
                </form>
             </div>
+           
             <div class="dashboard-table px-5 py-3">
+            {errorMessage && <p className="text-danger">{errorMessage}</p>}
                <table class="table">
                   <thead class="thead-light">
                      <tr>
@@ -51,92 +108,28 @@ export const  EmployeeDashboard = () => {
                         <th scope="col">Action</th>
                      </tr>
                   </thead>
-                  <tbody>
-                     <tr>
-                        <td> <a data-toggle="modal" class="employeedashbordid" data-target="#exampleModalCenter3">TH-001 </a></td>
-                        <td>tim</td>
-                        <td>tim@gmail.com</td>
-                        <td>+1(813) 752-5611</td>
-                        <td>13450 - 104 Avenue Surrey, BC V3T 1V8</td>
+               <tbody>
+                  {employees.map(employee => (
+                     <tr key={employee.Emp_ID}>
+                         
+                        <td> <a data-toggle="modal" class="employeedashbordid" data-target="#exampleModalCenter3">TH-{employee.Emp_ID} </a></td>
+                        <td>{employee.Emp_Name}</td>
+                        <td>{employee.Emp_Email}</td>
+                        <td>{employee.Emp_Phone}</td>
+                        <td>{employee.Emp_Address}</td>
                         <td class="table-side-icon">
                            <span>
-                           <a href="/editemploye" data-toggle="tooltip" data-placement="top" title="Edit Employee"><img src="images/Icons.png"  alt="icon" /></a>
+                           <a href={`/editemploye/${employee.Emp_ID}`} data-toggle="tooltip" data-placement="top" title="Edit Employee"><img src="images/Icons.png"  alt="icon" /></a>
                            </span>
                            <span data-toggle="modal"  data-target="#exampleModalCenter2">
-                           <a data-placement="top" data-toggle="tooltip" title="Delete Employee" ><img src="images/trash-can-alt-2.png"  alt="icon" /></a>
+                           <a data-placement="top" data-toggle="tooltip" title="Delete Employee" onClick={() => setEmployeeToDelete(employee)} ><img src="images/trash-can-alt-2.png"  alt="icon" /></a>
                            </span>
-                           <a href="emplyoyeejoblist" data-toggle="tooltip"  title="Employee Job List" ><img src="images/eye.png"  alt="icon" /></a>
+                           <a href={`/emplyoyeejoblist/${employee.Emp_ID}`} data-toggle="tooltip"  title="Employee Job List" ><img src="images/eye.png"  alt="icon" /></a>
                         </td>
                      </tr>
-                     <tr>
-                        <td>TH-002</td>
-                        <td>elan</td>
-                        <td>elansin@gmail.com</td>
-                        <td>+1-813-732-5535</td>
-                        <td>234 Clyde Rd 	Cambridge, N1R 1L2</td>
-                        <td class="table-side-icon">
-                           <a href=""><img src="images/Icons.png"   alt="icon" /></a>
-                           <a href=""><img src="images/trash-can-alt-2.png"  alt="icon" /></a>
-                           <a href=""><img src="images/eye.png"  alt="icon" /></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>TH-003</td>
-                        <td>kanwar</td>
-                        <td>kanwar@gmail.com</td>
-                        <td>+1-813-752-5611</td>
-                        <td>Winnipeg  2426 George Street, K9H 2L1</td>
-                        <td class="table-side-icon">
-                           <a href=""><img src="images/Icons.png"  alt="icon" /></a>
-                           <a href=""><img src="images/trash-can-alt-2.png"  alt="icon" /></a>
-                           <a href=""><img src="images/eye.png" alt="icon" /></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>TH-004</td>
-                        <td>Harry</td>
-                        <td>Harryporter@outlook.com</td>
-                        <td>+1-213-322-2221</td>
-                        <td>British Columbia 775 Scotts Lane</td>
-                        <td class="table-side-icon">
-                           <a href=""><img src="images/Icons.png"  alt="icon" /></a>
-                           <a href=""><img src="images/trash-can-alt-2.png"  alt="icon" /></a>
-                           <a href=""><img src="images/eye.png"  alt="icon" /></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>TH-005</td>
-                        <td>Jeffy</td>
-                        <td>Jeffysinc@look.com</td>
-                        <td>+1-813-r752-5611</td>
-                        <td>2600 Russell Avenue , British Columbia</td>
-                        <td class="table-side-icon">
-                           <a href=""><img src="images/Icons.png"  alt="icon" /></a>
-                           <a href=""><img src="images/trash-can-alt-2.png"  alt="icon" /></a>
-                           <a href=""><img src="images/eye.png"  alt="icon" /></a>
-                        </td>
-                     </tr>
+                       ))}
                   </tbody>
                </table>
-               <nav aria-label="Page navigation example pt-4">
-                  <ul class="pagination">
-                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                     </li>
-                     <li class="page-item"><a class="page-link" href="#">1</a></li>
-                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                        </a>
-                     </li>
-                  </ul>
-               </nav>
             </div>
          </div>
       
@@ -170,24 +163,24 @@ export const  EmployeeDashboard = () => {
          </div>
          
          <div class="modal fade delete-modal bd-example-modal-lg" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-               <div class="modal-content">
+         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
                   <div class="modal-header">        
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
+                        <span aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>
                      </button>
                   </div>
                   <div class="modal-body pt-5">
-                     <h3 class="text-center">Are you sure you want to delete Em_101 ?</h3>
-                     <p>This will delete this Em_101 Permanently. You cannot Undo this action.</p>
+                     <h3 class="text-center">Are you sure you want to delete {employeeToDelete ? `Em_${employeeToDelete.Emp_ID}` : 'this employee'}?</h3>
+                     <p>This will delete this employee Permanently. You cannot Undo this action.</p>
                      <div class="modal-deletebtn text-center">
                         <button type="button" class="btn btn-outline-dark" data-dismiss="modal">No</button>
-                        <button type="button" class="btn btn-primary ml-2" data-dismiss="modal">Yes</button>
+                        <button type="button" onClick={() => handleDelete(employeeToDelete ? employeeToDelete.Emp_ID : null)} class="btn btn-primary ml-2" data-dismiss="modal">Yes</button>
                      </div>
                   </div>
-               </div>
             </div>
          </div>
+      </div>
          
          <div class="modal fade location-modal bd-example-modal-lg" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
