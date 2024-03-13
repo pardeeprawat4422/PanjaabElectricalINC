@@ -33,10 +33,10 @@ function App() {
           <Route path="/jobLocation" element={<JobLocation />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/addnewJob" element={<AddnewJob />} />
-          <Route path="/editemploye" element={<EditEmploye />} />
-          <Route path="/emplyoyeejoblist" element={<Emplyoyeejoblist />} />
-          <Route path="/workerlist" element={<WorkerList />} />
-          <Route path="/editjobemployee" element={<EditJobEmpoyee />} />
+          <Route path="/editemploye/:id" element={<EditEmploye />} />
+          <Route path="/emplyoyeejoblist/:id" element={<Emplyoyeejoblist />} />
+          <Route path="/workerlist/:id" element={<WorkerList />} />
+          <Route path="/editjobemployee/:id" element={<EditJobEmpoyee />} />
         </Routes>
       </div>
     </Router>
