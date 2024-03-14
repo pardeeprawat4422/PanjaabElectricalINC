@@ -25,12 +25,12 @@ export const  EmployeeReports = () => {
        <form>
           <div class="form-row">
              <div class="form-group">
-                <label for="exampleInputmonth">From</label>
-                <input type="text" class="form-control" id="exampleInputmonth"  placeholder="Jan 01" />                      
+                <label for="datepicker">From</label>
+                <input type="date" class="form-control datepicker"  placeholder="Start"/>                      
              </div>
              <div class="form-group ">
                 <label for="exampleInputmonth">To</label>
-                <input type="text" class="form-control" id="exampleInputmonth" placeholder="Jan 31" />
+                <input type="date" class="form-control" id="exampleInputmonth" placeholder="End" />
              </div>
              <div class="form-group ">
                 <label for="exampleFormControlSelect1">of</label>
@@ -69,23 +69,18 @@ export const  EmployeeReports = () => {
           <tbody>
              <tr>
                 <td>TH-001</td>
-                <td>28 Hours</td>
-                <td>2-4 Feb</td>
+                <td>2 Hours</td>
+                <td>31 Dec 2023 - 7 Jan 2024</td>
              </tr>
              <tr>
                 <td>TH-002</td>
-                <td>2 Hours</td>
-                <td>2 Jan</td>
+                <td>16 Hours</td>
+                <td>25 Jan 2024 - 2 Feb 2024</td>
              </tr>
              <tr>
                 <td>TH-003</td>
-                <td>16 Hours</td>
-                <td>26-27 Jan</td>
-             </tr>
-             <tr>
-                <td>TH-004</td>
                 <td>8 Hours</td>
-                <td>2 Feb</td>
+                <td>29 Feb 2024 - 1 Mar 2024</td>
              </tr>
           </tbody>
        </table>

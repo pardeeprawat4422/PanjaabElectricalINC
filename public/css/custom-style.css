@@ -99,7 +99,7 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 
 /*reports page css */
 .reports-form .form-group{  display: flex;align-items: flex-end;    margin: 0px 5px;}
-.reports-form .form-control{    height: 37px!important; width: 80px; margin: 0px 10px;padding: 0.1rem 0.75rem!important;}
+.reports-form .form-control{    height: 37px!important; width: 150px; margin: 0px 10px;padding: 0.1rem 0.75rem!important;}
 .reports-form .form-row {justify-content: flex-end;}
 
 
@@ -134,6 +134,13 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 .current-location{width: 60%; padding: auto 2rem;padding-top: 1.5rem; padding-bottom: 1.5rem; border: 1px solid #80808038;
     border-radius: 10px;  margin: auto;}
 .current-location-heading{justify-content:center!important;margin-top:2.5rem;}
+.employee-list-num{text-decoration: underline;color: inherit;}
+.employee-list-num:hover{text-decoration: underline;color:black;}
+.employeedashbordid{text-decoration: underline!important;}
+
+.right-panel .form-jobs label {min-width: 120px;}
+#sidebar ul li span{padding-top: 0;}
+
 
 @media(min-width: 992px) and (max-width:1080px){
 

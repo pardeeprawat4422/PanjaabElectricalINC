@@ -12,6 +12,10 @@ import { Currentlocation }  from './Employee/Currentlocation';
 import { JobLocation }  from './Employee/JobLocation';
 import { Notification }  from './Employee/Notification';
 import { AddnewJob } from './Employee/AddnewJob';
+import { EditEmploye } from './Employee/EditEmploye';
+import { Emplyoyeejoblist } from './Employee/Emplyoyeejoblist';
+import { WorkerList } from './Employee/WorkerList';
+import { EditJobEmpoyee } from './Employee/EditJobEmpoyee';
 function App() {
   return (
     <Router>
@@ -25,10 +29,14 @@ function App() {
           <Route path="/employeereports" element={<EmployeeReports />} />
           <Route path="/employerreports" element={<EmployerReports />} />
           <Route path="/livestatus" element={<LiveStatus />} />
-          <Route path="/currentlocation" element={<Currentlocation />} />
+          <Route path="/currentlocation/:?ids=" element={<Currentlocation />} />
           <Route path="/jobLocation" element={<JobLocation />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/addnewJob" element={<AddnewJob />} />
+          <Route path="/editemploye/:id" element={<EditEmploye />} />
+          <Route path="/emplyoyeejoblist/:id" element={<Emplyoyeejoblist />} />
+          <Route path="/workerlist/:id" element={<WorkerList />} />
+          <Route path="/editjobemployee/:id" element={<EditJobEmpoyee />} />
         </Routes>
       </div>
     </Router>

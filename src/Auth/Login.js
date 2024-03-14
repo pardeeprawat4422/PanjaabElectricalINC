@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -8,8 +9,9 @@ export const Login = () => {
   const [role, setRole] = useState('Employee'); // Default to Employee
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!email) {
@@ -26,14 +28,28 @@ export const Login = () => {
       setPasswordError('');
     }
 
-    //alert(`Email: ${email}, Password: ${password}`);
-    if (role === 'Employer') {
-      // Navigate to employee dashboard
-      navigate("/employeelist");
-    } else  {
-      navigate("/employerreports");
+    try {
+      const response = await api.post('/login', {
+        email,
+        password,
+        role
+      });
+
+      // Assuming your backend returns a user object with a token upon successful login
+      const { EmpL_ID, Emp_ID } = response.data;
+      // You can save the user ID or token in local storage for authentication
+      // Example: localStorage.setItem('token', token);
+
+      // Redirect based on the user role
+      if (role === 'Employer') {
+        navigate("/employeelist");
+      } else {
+        navigate("/employerreports");
+      }
+    } catch (error) {
+      // Handle login error
+      setError('Invalid email or password');
     }
-    // You can add more conditions for different roles if needed
   };
 
   return (
@@ -94,6 +110,7 @@ export const Login = () => {
                           className="btn btn-primary w-100 py-2 my-3"
                           value="Sign in"
                         />
+                        {error && <div className="text-danger">{error}</div>}
                       </div>
                     </div>
                   </form>
