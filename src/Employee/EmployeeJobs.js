@@ -117,7 +117,7 @@ export const EmployeeJobs = () => {
                                     }
                                     {
                                         (job.Job_Status === 'In-progress' || job.Job_Status === 'Completed') &&
-                                        <span>Not Authorized</span>
+                                        <span>Not Allowed</span>
                                     }
                                     </td>
                                 </tr>
