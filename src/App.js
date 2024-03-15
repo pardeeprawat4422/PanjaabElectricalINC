@@ -1,21 +1,21 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import React from 'react';
 import { Login } from './Auth/Login';
-import  LeftSidebar from './Employee/LeftSidebar';
-import { EmployeeDashboard } from './Employee/EmployeeDashboard';
-import { EmployeeJobs } from './Employee/EmployeeJobs';
-import { AddnewEmployee } from './Employee/AddnewEmployee';
-import { EmployeeReports } from './Employee/EmployeeReports';
-import  EmployerReports  from './Employer/EmployerReports';
-import { LiveStatus }  from './Employee/LiveStatus';
-import { Currentlocation }  from './Employee/Currentlocation';
-import { JobLocation }  from './Employee/JobLocation';
-import { Notification }  from './Employee/Notification';
-import { AddnewJob } from './Employee/AddnewJob';
-import { EditEmploye } from './Employee/EditEmploye';
-import { Emplyoyeejoblist } from './Employee/Emplyoyeejoblist';
-import { WorkerList } from './Employee/WorkerList';
-import { EditJobEmpoyee } from './Employee/EditJobEmpoyee';
+import  LeftSidebar from './Employer/LeftSidebar';
+import { EmployeeDashboard } from './Employer/EmployeeDashboard';
+import { EmployeeJobs } from './Employer/EmployeeJobs';
+import { AddnewEmployee } from './Employer/AddnewEmployee';
+import { EmployeeReports } from './Employer/EmployeeReports';
+import  EmployeePersonalReports  from './Employee/EmployeePersonalReports';
+import { LiveStatus }  from './Employer/LiveStatus';
+import { Currentlocation }  from './Employer/Currentlocation';
+import { JobLocation }  from './Employer/JobLocation';
+import { Notification }  from './Employer/Notification';
+import { AddnewJob } from './Employer/AddnewJob';
+import { EditEmploye } from './Employer/EditEmploye';
+import { Emplyoyeejoblist } from './Employer/Emplyoyeejoblist';
+import { WorkerList } from './Employer/WorkerList';
+import { EditJobEmpoyee } from './Employer/EditJobEmpoyee';
 function App() {
   return (
     <Router>
@@ -26,10 +26,9 @@ function App() {
           <Route path="/employeelist" element={<EmployeeDashboard />} />
           <Route path="/employeejobs" element={<EmployeeJobs />} />
           <Route path="/addnewemployee" element={<AddnewEmployee />} />
-          <Route path="/employeereports" element={<EmployeeReports />} />
-          <Route path="/employerreports" element={<EmployerReports />} />
+          <Route path="/employerreports" element={<EmployeeReports />} />
           <Route path="/livestatus" element={<LiveStatus />} />
-          <Route path="/currentlocation/:?ids=" element={<Currentlocation />} />
+          <Route path="/currentlocation" element={<Currentlocation />} />
           <Route path="/jobLocation" element={<JobLocation />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/addnewJob" element={<AddnewJob />} />
@@ -37,6 +36,8 @@ function App() {
           <Route path="/emplyoyeejoblist/:id" element={<Emplyoyeejoblist />} />
           <Route path="/workerlist/:id" element={<WorkerList />} />
           <Route path="/editjobemployee/:id" element={<EditJobEmpoyee />} />
+        
+          <Route path="/employeepersonalreports/:id" element={<EmployeePersonalReports />} />
         </Routes>
       </div>
     </Router>

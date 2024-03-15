@@ -34,17 +34,18 @@ export const Login = () => {
         password,
         role
       });
-
+      
       // Assuming your backend returns a user object with a token upon successful login
       const { EmpL_ID, Emp_ID } = response.data;
       // You can save the user ID or token in local storage for authentication
       // Example: localStorage.setItem('token', token);
-
+      const id = response.data.Emp_ID;
+      console.log(id);
       // Redirect based on the user role
       if (role === 'Employer') {
         navigate("/employeelist");
       } else {
-        navigate("/employerreports");
+        navigate("/employeepersonalreports/"+id);
       }
     } catch (error) {
       // Handle login error

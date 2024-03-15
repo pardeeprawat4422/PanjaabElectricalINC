@@ -18,7 +18,7 @@ import React, { useState, useEffect } from 'react';
       case '/employeejobs':
         setStep(3);
         break;
-      case '/employeereports':
+      case '/employerreports':
         setStep(4);
         break;
 	   case '/notification':
@@ -61,7 +61,7 @@ import React, { useState, useEffect } from 'react';
          </a>
       </li>
       <li className={`my-1 ${step === 4 ? 'active' : ''}`}>
-      <a className="btn" onClick={() => navigateToStep('/employeereports')}>
+      <a className="btn" onClick={() => navigateToStep('/employerreports')}>
             <div class="leftside-img">
                <img src="/images/Reports.png" alt="image" />
             </div>

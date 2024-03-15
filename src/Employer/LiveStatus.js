@@ -24,14 +24,17 @@ export const LiveStatus = () => {
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     setCheckboxes({ ...checkboxes, [name]: checked });
- 
+  
     // Check if all checkboxes are checked
     const allChecked = Object.values({ ...checkboxes, [name]: checked }).every((checkbox) => checkbox);
     setSelectAllChecked(allChecked);
- 
+  
     setErrorMessage('');
+  
+    // Store the selected IDs in session storage
+    const selectedIds = Object.keys({ ...checkboxes, [name]: checked }).filter((key) => checkboxes[key]);
+    sessionStorage.setItem('selectedIds', JSON.stringify(selectedIds));
   };
- 
   const handleSelectAll = () => {
     const updatedCheckboxes = {};
     employees.forEach(employee => {
@@ -73,11 +76,28 @@ export const LiveStatus = () => {
         navigate(`/currentlocation?ids=${selectedIds.join(',')}`);
       }
     } else if (action === 'joblocation') {
-      navigate(`/joblocation?ids=${selectedIds.join(',')}`);
+      navigate('/joblocation');
     }
   };
- 
-
+  useEffect(() => {
+    const selectedIds = Object.keys(checkboxes).filter((key) => checkboxes[key]);
+    sessionStorage.setItem('selectedIds', JSON.stringify(selectedIds));
+    console.log("Stored IDs:", selectedIds);
+  }, [checkboxes]);
+  
+  useEffect(() => {
+    const storedIds = JSON.parse(sessionStorage.getItem('selectedIds'));
+    console.log("Retrieved IDs:", storedIds);
+    if (storedIds) {
+      const updatedCheckboxes = {};
+      employees.forEach((employee) => {
+        updatedCheckboxes[employee.Emp_ID] = storedIds.includes(employee.Emp_ID);
+      });
+      setCheckboxes(updatedCheckboxes);
+      const allChecked = Object.values(updatedCheckboxes).every((checkbox) => checkbox);
+      setSelectAllChecked(allChecked);
+    }
+  }, []);
 
   useEffect(() => {
     fetchData();
