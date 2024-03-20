@@ -102,13 +102,13 @@ export const EmployeeJobs = () => {
                                     <td>{job.Job_Status}</td>
                                     <td><a href={`/workerlist/${job.Job_Id}`} className="employee-list-num" data-toggle="tooltip" data-placement="top" title="Employee List">{job.No_Of_Emp}</a></td>
                                     <td className="table-side-icon">
-                                    {job.Job_Status !== 'In-progress' && job.Job_Status !== 'Completed' &&
+                                    {job.Job_Status !== 'In-Progress' && job.Job_Status !== 'Completed' &&
                                         <span>
                                             <a href={`/editjobemployee/${job.Job_Id}`} data-toggle="tooltip" data-placement="top" title="Edit Employee Job"><img src="images/Icons.png" alt="icon" /></a>
                                         </span>
                                     }
                                     {
-                                        (job.Job_Status !== 'In-progress' && job.Job_Status !== 'Completed') &&
+                                        (job.Job_Status !== 'In-Progress' && job.Job_Status !== 'Completed') &&
                                         <span data-toggle="modal" data-target="#exampleModalCenter2">
                                             <a data-placement="top" data-toggle="tooltip" title="Delete Employee" onClick={() => setEmployeeToDelete(job)}>
                                                 <img src="images/trash-can-alt-2.png" alt="icon" />

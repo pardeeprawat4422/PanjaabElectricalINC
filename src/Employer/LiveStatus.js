@@ -1,20 +1,20 @@
-import LeftSidebar from './LeftSidebar';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import api from '../api';
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
+import LeftSidebar from './LeftSidebar';
+import api from '../api'; // Import your API module
 
 export const LiveStatus = () => {
   const [employees, setEmployees] = useState([]);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use useNavigate hook
   const [selectAllChecked, setSelectAllChecked] = useState(false);
   const fetchData = async () => {
     try {
-        const response = await api.get('/employees');
-        setEmployees(response.data.employees);
-        setErrorMessage('');
+      const response = await api.get('/employees');
+      setEmployees(response.data.employees);
+      setErrorMessage('');
     } catch (error) {
-        console.error('Error fetching employees:', error);
-        setErrorMessage('Failed to fetch employees. Please try again.');
+      console.error('Error fetching employees:', error);
+      setErrorMessage('Failed to fetch employees. Please try again.');
     }
   };
 
@@ -24,13 +24,13 @@ export const LiveStatus = () => {
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     setCheckboxes({ ...checkboxes, [name]: checked });
-  
+
     // Check if all checkboxes are checked
     const allChecked = Object.values({ ...checkboxes, [name]: checked }).every((checkbox) => checkbox);
     setSelectAllChecked(allChecked);
-  
+
     setErrorMessage('');
-  
+
     // Store the selected IDs in session storage
     const selectedIds = Object.keys({ ...checkboxes, [name]: checked }).filter((key) => checkboxes[key]);
     sessionStorage.setItem('selectedIds', JSON.stringify(selectedIds));
@@ -54,7 +54,7 @@ export const LiveStatus = () => {
     setSelectAllChecked(false);
     setErrorMessage('');
   };
-  
+
   const areAnyChecked = Object.values(checkboxes).some((checkbox) => checkbox);
 
   const handleButtonClick = (action) => {
@@ -72,19 +72,21 @@ export const LiveStatus = () => {
       if (selectedIds.length === 0) {
         setErrorMessage('Please select at least one Employee to see Sign-in Location.');
       } else {
-        // Navigate to the "sign-in-location" page and pass the selected IDs as query parameters
+        // Navigate to the "currentlocation" page and pass the selected IDs as query parameters
         navigate(`/currentlocation?ids=${selectedIds.join(',')}`);
       }
     } else if (action === 'joblocation') {
-      navigate('/joblocation');
+      // Navigate to the "joblocation" page and pass the selected IDs as query parameters
+      navigate(`/joblocation?ids=${selectedIds.join(',')}`);
     }
   };
+
   useEffect(() => {
     const selectedIds = Object.keys(checkboxes).filter((key) => checkboxes[key]);
     sessionStorage.setItem('selectedIds', JSON.stringify(selectedIds));
     console.log("Stored IDs:", selectedIds);
   }, [checkboxes]);
-  
+
   useEffect(() => {
     const storedIds = JSON.parse(sessionStorage.getItem('selectedIds'));
     console.log("Retrieved IDs:", storedIds);

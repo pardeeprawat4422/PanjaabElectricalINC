@@ -142,7 +142,7 @@ export const EditEmploye = () => {
                         </div>
                         <div className="form-group submitbtn col-md-12">
                            <button type="submit" className="btn btn-primary py-2 my-3">
-                              Submit
+                              Update
                            </button>
                         </div>
                      </div>

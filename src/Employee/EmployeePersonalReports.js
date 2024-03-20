@@ -29,56 +29,60 @@ const EmployeePersonalReports = () => {
   };
 
   const handleClockIn = async (empId, jobId) => {
-   console.log(empId);
-   console.log(jobId);
-   try {
-     const response = await api.post('/jobclockin', {
-       emp_id: empId,
-       job_id: jobId // You need to replace this with the actual current location
-     });
+    try {
+      const response = await api.post('/jobclockin', {
+        emp_id: empId,
+        job_id: jobId
+      });
+  
+      // Update jobs state after successful clock-in
+      fetchJobs(); // This will fetch the updated data from the server
+    } catch (error) {
+      console.error('Error clocking in:', error);
+    }
+  };
  
-     console.log('Clock in response:', response);
-     // Handle success response, e.g., show a success message to the user
-   } catch (error) {
-     console.error('Error clocking in:', error);
-     // Handle error, e.g., show an error message to the user
-   }
- };
-
- const handlePaused = async (empId, jobId) => {
-   console.log(empId);
-   console.log(jobId);
-   try {
-     const response = await api.post('/jobpaused', {
-       emp_id: empId,
-       job_id: jobId // You need to replace this with the actual current location
-     });
+  const handlePaused = async (empId, jobId) => {
+    try {
+      const response = await api.post('/jobpaused', {
+        emp_id: empId,
+        job_id: jobId
+      });
+  
+      // Update jobs state after successful pause
+      fetchJobs();
+    } catch (error) {
+      console.error('Error pausing job:', error);
+    }
+  };
  
-     console.log('Clock in response:', response);
-     // Handle success response, e.g., show a success message to the user
-   } catch (error) {
-     console.error('Error clocking in:', error);
-     // Handle error, e.g., show an error message to the user
-   }
- };
-
- const handleResumed = async (empId, jobId) => {
-   console.log(empId);
-   console.log(jobId);
-   try {
-     const response = await api.post('/jobresumed', {
-       emp_id: empId,
-       job_id: jobId // You need to replace this with the actual current location
-     });
+  const handleResumed = async (empId, jobId) => {
+    try {
+      const response = await api.post('/jobresumed', {
+        emp_id: empId,
+        job_id: jobId
+      });
+  
+      // Update jobs state after successful resume
+      fetchJobs();
+    } catch (error) {
+      console.error('Error resuming job:', error);
+    }
+  };
  
-     console.log('Clock in response:', response);
-     // Handle success response, e.g., show a success message to the user
-   } catch (error) {
-     console.error('Error clocking in:', error);
-     // Handle error, e.g., show an error message to the user
-   }
- };
- 
+  const clockOut = async (empId, jobId) => {
+    try {
+      const response = await api.post('/jobclockout', {
+        emp_id: empId,
+        job_id: jobId
+      });
+  
+      // Update jobs state after successful resume
+      fetchJobs();
+    } catch (error) {
+      console.error('Error resuming job:', error);
+    }
+  };
 
 
   return (
@@ -187,7 +191,7 @@ const EmployeePersonalReports = () => {
                         )}
                         {job.Job_Running_Status === 'Paused' && (
                            <div  className="d-flex">
-                              <button className="btn btn-primary btn-sm mr-2">
+                              <button className="btn btn-primary btn-sm mr-2" onClick={() => clockOut(job.Emp_ID,job.Job_Id)}>
                                     Clock-Out
                               </button>
                               <button className="btn btn-primary btn-sm" onClick={() => handleResumed(job.Emp_ID,job.Job_Id)}>

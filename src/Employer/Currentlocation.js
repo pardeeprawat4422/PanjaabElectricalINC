@@ -9,17 +9,13 @@ export const Currentlocation = () => {
   const ids = queryParams.getAll('ids');
   const [employees, setEmployees] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from the API based on the IDs
         const response = await api.get(`/employees?ids=${ids.join(',')}`);
-        console.log('API Response:', response.data); // Log the API response
-        if (Array.isArray(response.data)) {
-          setEmployees(response.data); // Update employees with the fetched data if it's an array
-        } else {
-          console.error('API Response is not an array:', response.data);
-        }
+        console.log('API Response:', response.data);
+        setEmployees(response.data.employees); // Assuming the response contains an array of employees
       } catch (error) {
         console.error('Error fetching employees:', error);
       }
@@ -48,26 +44,14 @@ export const Currentlocation = () => {
           <h3 className="font-weight-medium">SignIn Location</h3>
         </div>
         <div className="current-location px-4">
-        {employees.map(employee => (
-                        employee.Emp_ID === selectedEmployeeId && (
-                           <form key={employee.Emp_ID}>
-                              <div className="location-panel my-3">
-                                 <p><b>SignIn Location</b></p>
-                                 <p>{employee.Emp_SignIn_Location}</p>   
-                                 <p>{employee.Emp_LoggedIn_DateTime}</p>                   
-                              </div>
-                              <div className="location-panel my-3">
-                                 <p><b>Job Start Location</b></p>
-                                 <p>First Canadian Place</p>                      
-                              </div>
-                              <div className="form-group savebtn text-center">               
-                                 <button type="button" className="btn btn-primary py-2 my-3" data-dismiss="modal" aria-label="Close">Close</button>
-                              </div>
-                           </form>
-                        )
-                     ))}
-
-
+          {employees.map(employee => (
+            <div key={employee.id}> {/* Assuming each employee has an 'id' */}
+              <h4>{employee.Emp_Name}</h4> {/* Assuming 'Emp_Name' is the employee's name */}
+              <p><b>SignIn Location:</b> {employee.Emp_SignIn_Location}</p>
+              <p><b>Sign-In Date Time:</b> {employee.Emp_LoggedIn_DateTime}</p>
+              {/* Add more fields as needed */}
+            </div>
+          ))}
         </div>
       </div>
     </section>

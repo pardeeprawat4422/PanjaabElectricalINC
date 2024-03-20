@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import LeftSidebar from './LeftSidebar';
-
+import api from '../api';
 export const  EmployeeReports = () => {
+   const [reportData, setReportData] = useState([]);
+   useEffect(() => {
+      const fetchReportData = async () => {
+         try {
+            // Fetch data from your API endpoint
+            const response = await api.get(`/reports`);
+            // Set the fetched data to state
+            console.log(reportData);
+            setReportData(response.data.data);
+         } catch (error) {
+            // Handle errors
+            console.error('Error fetching data:', error);
+         }
+      };
+
+      // Call fetchReportData function
+      fetchReportData();
+
+   }, []); // Empty dependency array to run effect only once
+
   return (
     <section class="employee-dashboard d-flex">
     <LeftSidebar />
@@ -58,6 +78,7 @@ export const  EmployeeReports = () => {
        </form>
     </div>
     <div class="reports-table px-5 py-5">
+      
        <table class="table text-center">
           <thead class="thead-light">
              <tr>
@@ -67,22 +88,14 @@ export const  EmployeeReports = () => {
              </tr>
           </thead>
           <tbody>
-             <tr>
-                <td>TH-001</td>
-                <td>2 Hours</td>
-                <td>31 Dec 2023 - 7 Jan 2024</td>
-             </tr>
-             <tr>
-                <td>TH-002</td>
-                <td>16 Hours</td>
-                <td>25 Jan 2024 - 2 Feb 2024</td>
-             </tr>
-             <tr>
-                <td>TH-003</td>
-                <td>8 Hours</td>
-                <td>29 Feb 2024 - 1 Mar 2024</td>
-             </tr>
-          </tbody>
+  {reportData.map((report, index) => (
+    <tr key={index}>
+      <td>{report.Emp_Name}</td>
+      <td>{report.total_hours_worked}</td>
+      <td>{report.first_clockin} - {report.last_clockout}</td>
+    </tr>
+  ))}
+</tbody>
        </table>
     </div>
     <nav aria-label="Page navigation example pt-4">
