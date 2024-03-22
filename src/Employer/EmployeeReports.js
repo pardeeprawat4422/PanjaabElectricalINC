@@ -9,7 +9,6 @@ export const  EmployeeReports = () => {
             // Fetch data from your API endpoint
             const response = await api.get(`/reports`);
             // Set the fetched data to state
-            console.log(reportData);
             setReportData(response.data.data);
          } catch (error) {
             // Handle errors
@@ -58,8 +57,9 @@ export const  EmployeeReports = () => {
              <div class="form-group">
                 <select class="form-control" id="exampleFormControlSelect1">
                    <option>All</option>
-                   <option>All 1</option>
-                   <option>All 2</option>
+                   {reportData.map((report, index) => (
+                   <option> {report.Job_Tsitle}</option>
+                   ))}
                 </select>
                 <label for="exampleFormControlSelect1">Employee For</label>
              </div>

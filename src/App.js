@@ -8,7 +8,7 @@ import { AddnewEmployee } from './Employer/AddnewEmployee';
 import { EmployeeReports } from './Employer/EmployeeReports';
 import  EmployeePersonalReports  from './Employee/EmployeePersonalReports';
 import { LiveStatus }  from './Employer/LiveStatus';
-import { Currentlocation }  from './Employer/Currentlocation';
+import { Currentlocation  }  from './Employer/Currentlocation';
 import { JobLocation }  from './Employer/JobLocation';
 import { Notification }  from './Employer/Notification';
 import { AddnewJob } from './Employer/AddnewJob';

@@ -6,24 +6,30 @@ import api from '../api'; // Import your API module
 export const Currentlocation = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const ids = queryParams.getAll('ids');
+  const employeeIds = queryParams.get('ids');
+  console.log(employeeIds);
   const [employees, setEmployees] = useState([]);
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get(`/employees?ids=${ids.join(',')}`);
-        console.log('API Response:', response.data);
-        setEmployees(response.data.employees); // Assuming the response contains an array of employees
+        if (employeeIds) {
+          // Make API request with ids as query parameter
+          const response = await api.get(`/getsigninlocation?employeeIds=${employeeIds}`);
+          console.log('API Response:', response.data);
+
+          // Assuming the response contains an array of employees
+          setEmployees(response.data.employees);
+        }
       } catch (error) {
         console.error('Error fetching employees:', error);
+        setErrorMessage('Failed to fetch employees. Please try again.');
       }
     };
 
     fetchData();
-  }, [ids]);
-
+  }, [employeeIds]);
   return (
     <section className="employee-dashboard d-flex">
       <LeftSidebar />
@@ -44,15 +50,19 @@ export const Currentlocation = () => {
           <h3 className="font-weight-medium">SignIn Location</h3>
         </div>
         <div className="current-location px-4">
+        
           {employees.map(employee => (
+            <div class="location-panel my-3">
             <div key={employee.id}> {/* Assuming each employee has an 'id' */}
               <h4>{employee.Emp_Name}</h4> {/* Assuming 'Emp_Name' is the employee's name */}
               <p><b>SignIn Location:</b> {employee.Emp_SignIn_Location}</p>
               <p><b>Sign-In Date Time:</b> {employee.Emp_LoggedIn_DateTime}</p>
               {/* Add more fields as needed */}
             </div>
+            </div>
           ))}
         </div>
+       
       </div>
     </section>
   );

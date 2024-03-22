@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import LeftSidebar from './LeftSidebar';
+import { useLocation } from 'react-router-dom';
 import api from '../api'; // Import your API module
 
 export const JobLocation = () => {
   const [jobLocations, setJobLocations] = useState([]);
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const employeeIds = queryParams.get('ids');
+  console.log(employeeIds);
   useEffect(() => {
     const fetchJobLocations = async () => {
       try {
-        const response = await api.get('/jobloaction');
+        const response = await api.get(`/getjoblocation?employeeIds=${employeeIds}`);
         console.log('API Response:', response.data);
         setJobLocations(response.data.jobs); // Assuming the response contains an array of job locations
       } catch (error) {
@@ -37,13 +41,19 @@ export const JobLocation = () => {
           <h3 className="font-weight-medium">Job Location</h3>
         </div>
         <div className="current-location px-4">
-          {jobLocations.map(location => (
-            <div key={location.id}>
-              <p><b>{location.Emp_Name}</b></p>
-              <p>{location.Job_Location}</p>
-            </div>
-          ))}
-        </div>
+  {jobLocations.map(location => (
+    <div class="location-panel my-3">
+    <div key={location.id}>
+      <p><b>{location.Emp_Name}</b></p>
+      {location.Job_ClockIn_Location ? (
+        <p>{location.Job_ClockIn_Location}</p>
+      ) : (
+        <p>Job Not Started Yet</p>
+      )}
+       </div>
+    </div>
+  ))}
+</div>
       </div>
     </section>
   );
