@@ -67,7 +67,7 @@ export const EmployeeJobs = () => {
                     <form>
                         <div className="form-row">
                             <div className="form-group  col-sm-5 px-3 mb-0">
-                                <label>Serch by Status </label>
+                                <label>Search By Status </label>
                                 <select className="form-control ml-4" id="exampleFormControlSelect1" onChange={handleStatusChange}>
                                     <option>All</option>
                                     <option>Completed</option>
@@ -116,7 +116,7 @@ export const EmployeeJobs = () => {
                                         </span>
                                     }
                                     {
-                                        (job.Job_Status === 'In-progress' || job.Job_Status === 'Completed') &&
+                                        (job.Job_Status === 'In-Progress' || job.Job_Status === 'Completed') &&
                                         <span>Not Allowed</span>
                                     }
                                     </td>

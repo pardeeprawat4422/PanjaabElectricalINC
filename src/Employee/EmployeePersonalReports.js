@@ -5,6 +5,7 @@ import api from '../api';
 const EmployeePersonalReports = () => {
   const { id } = useParams();
   const [jobs, setJobs] = useState([]);
+  const [Counts, setCount] = useState('');
 
   const [activeTab, setActiveTab] = useState('LAJ');
 
@@ -17,8 +18,10 @@ const EmployeePersonalReports = () => {
     try {
       const response = await api.get(`/employeejoblist/${id}/${activeTab}`);
       setJobs(response.data.employees);
+      setCount(response.data.count)
       console.log(response)
       console.log(response.data.employees[0].Job_Running_Status)
+      console.log(jobs.length)
     } catch (error) {
       console.error('Error fetching jobs:', error);
     }
@@ -52,7 +55,7 @@ const EmployeePersonalReports = () => {
       // Update jobs state after successful pause
       fetchJobs();
     } catch (error) {
-      console.error('Error pausing job:', error);
+      console.error('Error pausing the job:', error);
     }
   };
  
@@ -66,7 +69,7 @@ const EmployeePersonalReports = () => {
       // Update jobs state after successful resume
       fetchJobs();
     } catch (error) {
-      console.error('Error resuming job:', error);
+      console.error('Error resuming the job:', error);
     }
   };
  
@@ -76,20 +79,25 @@ const EmployeePersonalReports = () => {
         emp_id: empId,
         job_id: jobId
       });
-  
+     console.log(response)
       // Update jobs state after successful resume
       fetchJobs();
     } catch (error) {
-      console.error('Error resuming job:', error);
+      console.error('Error Clocking Out the job:', error);
     }
   };
 
+  const clockOutPaused = async (empId, jobId) => {
+    alert("Please Resume the Job First. You can't directly ClockOut the Job")
+  };
+  
 
   return (
     <section className="main-panel">
       <div className="nav-menu">
       <div class="left-navlogo">
           <a href="/employerreports"><img src="/images/punjab-electrical-inc-01.png" alt="logo" /></a>
+          
        </div>
        <div class="right-navsection">
           <div class="navside-strip">
@@ -144,17 +152,19 @@ const EmployeePersonalReports = () => {
                       <td>{job.Job_Notes}</td>
                       <td>{job.Job_Start_Date ? job.Job_Start_Date.substring(0, 10) : ''} Time {job.Job_Start_Time} </td>
                       <td>
-                      {job.Job_Running_Status === 'NotStarted' && (
-                        <button
-                              className="btn btn-primary"
-                              onClick={() => handleClockIn(job.Emp_ID,job.Job_Id)}
-                           >
-                              Clock-In
-                           </button>
+                        {Counts > 0 ? (
+                          <b>Your another job is in progress.</b>
+                          
+                        ) : (
+                          <button
+                            className="btn btn-primary"
+                            onClick={() => handleClockIn(job.Emp_ID, job.Job_Id)}
+                          >
+                            Clock-In
+                          </button>
                         )}
-                        
-                     </td>
-                    </tr>
+                      </td>
+                     </tr>
                   ))}
                 </tbody>
               </table>
@@ -181,7 +191,7 @@ const EmployeePersonalReports = () => {
                  <td>{job.Job_Start_Date ? job.Job_Start_Date.substring(0, 10) : ''} Time {job.Job_Start_Time} </td>
                  <td>{job.Job_Running_Status === 'Running' && (
                            <div className="d-flex">
-                              <button className="btn btn-primary btn-sm mr-2" >
+                             <button className="btn btn-primary btn-sm mr-2" onClick={() => clockOut(job.Emp_ID,job.Job_Id)}>
                                     Clock-Out
                               </button>
                               <button className="btn btn-primary btn-sm" onClick={() => handlePaused(job.Emp_ID,job.Job_Id)}>
@@ -191,7 +201,7 @@ const EmployeePersonalReports = () => {
                         )}
                         {job.Job_Running_Status === 'Paused' && (
                            <div  className="d-flex">
-                              <button className="btn btn-primary btn-sm mr-2" onClick={() => clockOut(job.Emp_ID,job.Job_Id)}>
+                              <button className="btn btn-primary btn-sm mr-2" onClick={() => clockOutPaused(job.Emp_ID,job.Job_Id)}>
                                     Clock-Out
                               </button>
                               <button className="btn btn-primary btn-sm" onClick={() => handleResumed(job.Emp_ID,job.Job_Id)}>

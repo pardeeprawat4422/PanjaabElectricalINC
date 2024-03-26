@@ -1,26 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import LeftSidebar from './LeftSidebar';
 import api from '../api';
-export const  EmployeeReports = () => {
+
+export const EmployeeReports = () => {
+   const [startDate, setStartDate] = useState('');
+   const [selectedEmployee, setSelectedEmployee] = useState('');
+   const [selectedJob, setSelectedJob] = useState('');
+   const [endDate, setEndDate] = useState('');
    const [reportData, setReportData] = useState([]);
+   const [jobData, setJobData] = useState([]);
+   const [empData, setEmpData] = useState([]);
+
+   // Define fetchReportData outside of useEffect
+   const fetchReportData = async () => {
+      try {
+         // Fetch data from your API endpoint
+         const response = await api.get(`/reports`, {
+            params: {
+               startDate: startDate,
+               endDate: endDate,
+               employeeName: selectedEmployee,
+               job: selectedJob
+            }
+         });
+         // Set the fetched data to state
+         setReportData(response.data.data);
+         setJobData(response.data.joblist);
+         setEmpData(response.data.emplist);
+      } catch (error) {
+         // Handle errors
+         console.error('Error fetching data:', error);
+      }
+   };
+
    useEffect(() => {
-      const fetchReportData = async () => {
-         try {
-            // Fetch data from your API endpoint
-            const response = await api.get(`/reports`);
-            // Set the fetched data to state
-            setReportData(response.data.data);
-         } catch (error) {
-            // Handle errors
-            console.error('Error fetching data:', error);
-         }
-      };
-
-      // Call fetchReportData function
       fetchReportData();
+   }, [startDate, endDate, selectedEmployee, selectedJob]);
 
-   }, []); // Empty dependency array to run effect only once
+   const handleEmployeeChange = (e) => {
+      setSelectedEmployee(e.target.value);
+   };
 
+   const handleJobChange = (e) => {
+      setSelectedJob(e.target.value);
+   };
   return (
     <section class="employee-dashboard d-flex">
     <LeftSidebar />
@@ -40,39 +63,41 @@ export const  EmployeeReports = () => {
     <div class="upper-addnew-heading px-5 d-flex pt-3">
        <h2>REPORTS</h2>
     </div>
-    <div class="reports-form form-login-panel pt-1 px-5">
-       <form>
+    <div class="reports-form form-login-panel pt-1 px-5 mr-5">
+    <form onSubmit={(e) => { e.preventDefault(); fetchReportData(); }}>
           <div class="form-row">
              <div class="form-group">
                 <label for="datepicker">From</label>
-                <input type="date" class="form-control datepicker"  placeholder="Start"/>                      
+                <input type="date" class="form-control datepicker"  placeholder="Start" 
+                 onChange={(e) => setStartDate(e.target.value)}
+                />                      
              </div>
              <div class="form-group ">
                 <label for="exampleInputmonth">To</label>
-                <input type="date" class="form-control" id="exampleInputmonth" placeholder="End" />
+                <input type="date" class="form-control" id="exampleInputmonth" placeholder="End" 
+                 onChange={(e) => setEndDate(e.target.value)}
+                />
              </div>
              <div class="form-group ">
                 <label for="exampleFormControlSelect1">of</label>
              </div>
              <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1">
-                   <option>All</option>
-                   {reportData.map((report, index) => (
-                   <option> {report.Job_Tsitle}</option>
-                   ))}
-                </select>
+             <select className="form-control" id="exampleFormControlSelect1" onChange={handleEmployeeChange} value={selectedEmployee}>
+                  <option value="">All</option>
+                  {empData.map((empDatas, index) => (
+                     <option key={index} value={empDatas.Emp_Name}>{empDatas.Emp_Name}</option>
+                  ))}
+               </select>
                 <label for="exampleFormControlSelect1">Employee For</label>
              </div>
              <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1">
-                   <option>All</option>
-                   <option>All 1</option>
-                   <option>All 2</option>
-                </select>
+             <select className="form-control" id="exampleFormControlSelect2" onChange={handleJobChange} value={selectedJob}>
+                  <option value="">All</option>
+                  {jobData.map((jobDatas, index) => (
+                     <option key={index} value={jobDatas.Job_Title}>{jobDatas.Job_Title}</option>
+                  ))}
+               </select>
                 <label for="exampleFormControlSelect1">Job</label>
-             </div>
-             <div class="form-group search-reports">                       
-                <input type="submit" class="btn btn-dark px-4 ml-1" value="Search" />
              </div>
           </div>
        </form>
@@ -98,25 +123,6 @@ export const  EmployeeReports = () => {
 </tbody>
        </table>
     </div>
-    <nav aria-label="Page navigation example pt-4">
-       <ul class="pagination  px-5">
-          <li class="page-item">
-             <a class="page-link" href="#" aria-label="Previous">
-             <span aria-hidden="true">&laquo;</span>
-             <span class="sr-only">Previous</span>
-             </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-             <a class="page-link" href="#" aria-label="Next">
-             <span aria-hidden="true">&raquo;</span>
-             <span class="sr-only">Next</span>
-             </a>
-          </li>
-       </ul>
-    </nav>
  </div>
  </div>
  </section>
