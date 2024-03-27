@@ -105,6 +105,31 @@ export const LiveStatus = () => {
     fetchData();
   }, []);
 
+  // Function to handle menu toggle click
+  const handleMenuToggleClick = () => {
+    const menu = document.getElementById('sidebar');
+    if (menu) {
+       menu.classList.toggle('sidebar-active');
+    }
+ };
+
+ useEffect(() => {
+    // Get the menu toggle element
+    const menuToggle = document.getElementById('menu-toggle');
+
+    // Add click event listener to the menu toggle when component mounts
+    if (menuToggle) {
+       menuToggle.addEventListener('click', handleMenuToggleClick);
+    }
+
+    // Remove event listener when component unmounts
+    return () => {
+       if (menuToggle) {
+          menuToggle.removeEventListener('click', handleMenuToggleClick);
+       }
+    };
+ }, []);
+
   return (
     <section className="employee-dashboard d-flex">
       <LeftSidebar />
@@ -112,8 +137,8 @@ export const LiveStatus = () => {
         <div className="top-strip px-5 py-2">
           <div className="side-strip">
             <span className="icon-img"> <img src="images/man-icon.png" alt="image" /></span>
-            <p className="pb-0 mb-0 pl-3">Philomina</p>
-            <div id="menu-toggle" onClick="toggleSidebar">  
+            <p className="pb-0 mb-0 pl-3">Admin</p>
+            <div id="menu-toggle">  
               <span >|</span>   
               <img src="images/menu_leftn.png" />
             </div>

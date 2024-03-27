@@ -12,16 +12,16 @@ body{font-family: "Poppins", sans-serif;}
 .text-primary{color: #FF8700;}
 .text-dark{color: #161622;}
 .text-light{color: #94979A;}
-.btn-primary{background-color: var(--color-primary);color: white;font-size: 18px!important;font-weight: 500; border-radius: 12px;border-color: #ff8700;}
+.btn-primary{background-color: var(--color-primary);color: white; font-weight: 500; border-radius: 6px;border-color: #ff8700;}
 .btn-primary:hover{background-color: white;color: var(--color-primary);border-color: #ff8700;}
 .btn-primary:active{background-color: white!important;color: var(--color-primary)!important;border-color: #ff8700!important;}
 .btn-primary:focus { box-shadow: 0 0 0 0.2rem rgb(255 135 0)!important;}
 .btn-dark{background-color: black;border-radius: 8px;transition: 0.5s all ease;}
  label{ font-size:14px;font-weight: 700; }
-.form-control{background-color:var(--bg-pista) ;border:0.6px solid #D5D5D5;font-size: 16px; font-weight: 500;padding: 0.8rem 0.75rem ; border-radius: 10px!important;}
+.form-control{background-color:var(--bg-pista) ;border:0.6px solid #D5D5D5;font-size: 16px; font-weight: 500;padding: 0.8rem 0.75rem ; border-radius: 6px!important;}
 .form-control:focus {box-shadow: 0 0 0 0.016rem rgb(85 86 88 / 32%)!important;}
-.modal-content{    position: relative;}
-.modal-header{    position: absolute; right: 1px; top: -3px; border: 0px;}
+.modal-content{ position: relative;}
+.modal-header{ position: absolute; right: 1px; top: -3px; border: 0px;}
 .close {opacity: 1};
 .modal-dialog {max-width: 800px!important;}
 .modal{background-color: #000000b5!important;}
@@ -39,7 +39,7 @@ body{font-family: "Poppins", sans-serif;}
 .login-form-right{display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;}
 select.form-control:not([size]):not([multiple]) {  height: calc(2.25rem + 15px);}
 a{cursor: pointer;}
-.btn{font-size: 18px!important;}
+
 .table .thead-light th {  color: #64748B; background-color: #F7F9FC;  border-color: #F7F9FC;  font-weight: 500;}
 .btn-dark:hover {  background-color: white; color: black; font-weight: 600;}
 
@@ -48,6 +48,7 @@ a{cursor: pointer;}
 
 /*employee dashboard css */
 .left-panel{ background-color: #000;width: 230px;height: 100vh;    position: fixed;transition: 0.5s all ease;}
+.left-panel.sidebar-active{left: 0;}
 .right-panel{width: calc(100% - 230px);position: absolute; right: 0;}
 .left-panel ul li{width: 100%; display: flex; justify-content: center;  align-items: center; height: 50px;border-left: 3px solid transparent;    transition: 0.5s all ease;}
 .left-panel ul li a{border-radius: 10px; display: flex; width: 166px;  text-decoration: none; justify-content: flex-start; align-content: space-around;
@@ -60,8 +61,8 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 .left-panel ul li.active a{background-color: var(--color-primary);}
 .left-panel ul li.active{border-left: 3px solid var(--color-primary); border-radius: 3px;}
 .side-strip{ display: flex;align-items: center;justify-content: flex-end;  width: 100%; }
-.top-strip{    display: flex; justify-content: space-between;    border-bottom: 1px solid #E8E8E8}
-.mid-strip{    display: flex; justify-content: space-between;    align-items: center;}
+.top-strip{ display: flex; justify-content: space-between;    border-bottom: 1px solid #E8E8E8}
+.mid-strip{ display: flex; justify-content: space-between;    align-items: center;}
 .mid-strip h3{font-size: 20px;font-weight: 700;}
 .right-panel label{ font-size:14px;font-weight: 700; }
 .right-panel .form-control{background-color:var(--bg-pista) ;border:0.6px solid #D5D5D5;font-size: 16px; font-weight: 500;padding: 0.8rem 0.75rem ; }
@@ -114,19 +115,18 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 .reports-output-content .nav-pills .nav-link:focus{box-shadow: 0 0 0 0.2rem rgb(10 10 10)!important;}
 
 
-.side-strip .icon-img img{  border-radius: 100%; width: 100%; height: 100%;  object-fit: cover;}
+.side-strip .icon-img img{   width: 28px;   }
 
 #menu-toggle span {color:#000;}
 #menu-toggle span img{max-width: 32px;}
-.navside-strip span img{ max-width:45px; }
+.navside-strip span img{ max-width:28px; }
 .table-side-icon .delete img{max-width: 18px!important;}
 .upper-addnew-heading a i{color:black;padding: 0px 8px;}
-.side-strip .icon-img{width: 48px;  height: 45px;  overflow: hidden; border-radius: 100%;}
-.navside-strip .icon-img{width: 48px;  height: 45px;  overflow: hidden; border-radius: 100%;}
-.navside-strip .icon-img img{  border-radius: 100%; width: 100%; height: 100%;  object-fit: cover;}
+.side-strip .icon-img{width: 45px;  height: 43px;  overflow: hidden; border-radius: 100%; background: #fff; display: flex; justify-content: center; align-items: center; border:2px solid #ff8700;}
+.navside-strip .icon-img{width: 48px;  height: 45px;  overflow: hidden; border-radius: 100%; background: #fff; display: flex; justify-content: center; align-items: center; border:2px solid #ff8700;}
 
 /* index page css */
-.inner-selectbox .form-check {      padding-left: 3.25rem;padding-top: 1rem;}
+.inner-selectbox .form-check { padding-left: 3.25rem;padding-top: 1rem;}
 .selectbox-btn .btn-primary{color: white!important;}
 .selectbox-btn .btn-primary:hover {color:var(--color-primary)!important ;}
 .livelocation-btn {flex-wrap: wrap;}
@@ -141,10 +141,22 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 .right-panel .form-jobs label {min-width: 120px;}
 #sidebar ul li span{padding-top: 0;}
 
+.addemployee-form.form-login-panel .form-group .form-control{width: 100%;}
 
-@media(min-width: 992px) and (max-width:1080px){
+
+@media(min-width: 1200px) and (max-width: 1299px){
+	.form-login-panel .form-group .form-control{font-size: 14px; width: 132px;}
+}
+
+@media(min-width: 1081px) and (max-width: 1199px){
+	.form-login-panel .form-group .form-control{font-size: 12px; width: 107px;}
+	.form-login-panel .form-group label{font-size: 12px;}
+}
+
+@media(min-width: 993px) and (max-width:1080px){
 
 	.reports-form .form-control { height: 37px !important; width: 70px;  margin: 0px 2px;  padding: 0rem 0.2rem !important;}
+	.form-login-panel .form-group .form-control{font-size: 11px; width: 95px;}
 }
 
 
@@ -158,6 +170,14 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 	.search-reports{width: 100%; text-align: center;     justify-content: center;margin-top: 18px!important;}
 	.reports-form .form-row {    justify-content: center!important;}
 	.reports-output{    width: 90%;    display: flex;  justify-content: center;}
+
+	.reports-form.form-login-panel{margin-right: 0 !important;}
+	.reports-form.form-login-panel .form-group{ flex-wrap: wrap; width: 50%; margin: 0; padding: 0 5px;}
+	.reports-form.form-login-panel .form-group:nth-child(3){width: 100%; padding: 15px 0;}
+	.reports-form.form-login-panel .form-group:nth-child(3) label{margin-bottom: 0;}
+	.reports-form.form-login-panel .form-group label{order: 1; width: 100%;}
+	.reports-form.form-login-panel .form-group .form-control{ order: 2; width: 100%; margin-left: 0; margin-right: 0;}
+	
 }
 
 
@@ -166,6 +186,7 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 		.table .thead-light th {font-size: 16px;}
 		.table td{font-size: 14px;}
 		.reports-form .form-group{    margin: 5px 5px!important;}
+		.reports-form.form-login-panel .form-group{margin: 0 !important;}
 		.reports-output-content{overflow: scroll;}
 		.login-form-right{display: none;}
 
@@ -182,5 +203,15 @@ align-items: center;transition: 0.5s all ease;height: 100%;    padding: 0px 14px
 	.reports-output-content .nav {justify-content: space-between;}
 	.nav-item .btn-outline-dark{font-size: 13px!important;}
 	.navside-strip p{display: none;}
-	
+	.top-strip{padding: 0.5rem 2rem !important;}
+	.form-dashboard {padding: 1rem 2rem !important;}
+	.dashboard-table{padding: 1rem 2rem !important;}
+	.mid-strip {padding: 1rem 2rem !important; align-items: flex-start;}
+	.right-panel .form-control{ height: 45px;}
+	.form-dashboard.form-jobs .form-group select{min-width: 150px; height: 45px; }
+	.reports-form.form-login-panel .form-group{width: 100%; padding-bottom: 0;}
+	.livelocation-btn{padding: 1.5rem 2rem !important;}
+	.livelocation-btn .selectbox-btn{width: 100%; margin: 0.4rem 0 !important; margin-right: 0 !important; }
+	.livelocation-btn .selectbox-btn button{ width: 100%;}
+	.reports-form.form-login-panel .form-group{padding-bottom: 15px !important;}
 }

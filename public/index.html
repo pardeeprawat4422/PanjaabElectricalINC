@@ -41,6 +41,7 @@
       <title>PANJAAB ELECTRICAL INC</title>
       <script>
         $(document).ready(function () {
+          
           // Initialize tooltips
           $('[data-toggle="tooltip"]').tooltip();
     
@@ -52,38 +53,13 @@
           });
         });
       </script>
+      
+      
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-   <script>
-      var sidebar = document.getElementById('sidebar');
-      var menuToggle = document.getElementById('menu-toggle');
-      var rightpanel = document.getElementById('right-panel');
-  $('#datepicker').datepicker({
-        weekStart: 1,
-        daysOfWeekHighlighted: "6,0",
-        autoclose: true,
-        todayHighlight: true,
-    });
-    $('#datepicker').datepicker("setDate", new Date());
-
-    
-      function toggleSidebar() {
-          if (sidebar.style.left === '0px') {
-              sidebar.style.left = '-250px';
-          } else {
-              sidebar.style.left = '0px';
-              rightpanel.style.width = '100%';
-          }
-      }
-      
-      function closeSidebar() {
-          sidebar.style.left = '-250px';
-      }
-      
-      menuToggle.addEventListener('click', toggleSidebar);
-   </script>
+   
    
     <!--
       This HTML file is a template.

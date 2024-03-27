@@ -6,14 +6,23 @@ const EmployeePersonalReports = () => {
   const { id } = useParams();
   const [jobs, setJobs] = useState([]);
   const [Counts, setCount] = useState('');
-
+  const [employeeName, setEmployeeName] = useState('');
   const [activeTab, setActiveTab] = useState('LAJ');
 
   useEffect(() => {
     fetchJobs();
     handleClockIn();
+    fetchname();
   }, [activeTab, id]);
 
+  const fetchname = async () => {
+    try {
+      const response = await api.get(`/employee/${id}`);
+      setEmployeeName(response.data.emp_name); // Assumin
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+    }
+  };
   const fetchJobs = async () => {
     try {
       const response = await api.get(`/employeejoblist/${id}/${activeTab}`);
@@ -102,7 +111,7 @@ const EmployeePersonalReports = () => {
        <div class="right-navsection">
           <div class="navside-strip">
              <span class="icon-img"> <img src="/images/man-icon.png"  alt="image" /></span>
-             <p class="pb-0 mb-0 pl-3">Philomina</p>
+             <p class="pb-0 mb-0 pl-3">{employeeName}</p>
           </div>
           <div class="mid-side-strip px-3">
             <a href="/" class="btn btn-primary px-4 py-2">LOGOUT</a>

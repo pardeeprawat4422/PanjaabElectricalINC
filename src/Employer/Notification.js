@@ -30,6 +30,31 @@ export const Notification = () => {
     fetchData(); // Call fetchData on component mount
   }, []); // Empty dependency array ensures that this effect runs only once on component mount
 
+  // Function to handle menu toggle click
+  const handleMenuToggleClick = () => {
+    const menu = document.getElementById('sidebar');
+    if (menu) {
+       menu.classList.toggle('sidebar-active');
+    }
+ };
+
+ useEffect(() => {
+    // Get the menu toggle element
+    const menuToggle = document.getElementById('menu-toggle');
+
+    // Add click event listener to the menu toggle when component mounts
+    if (menuToggle) {
+       menuToggle.addEventListener('click', handleMenuToggleClick);
+    }
+
+    // Remove event listener when component unmounts
+    return () => {
+       if (menuToggle) {
+          menuToggle.removeEventListener('click', handleMenuToggleClick);
+       }
+    };
+ }, []);
+
   const markread = async () => {
     try {
       const recentResponse = await api.get(`/notifications/mark-read`);
@@ -55,18 +80,18 @@ export const Notification = () => {
         <div className="top-strip px-5 py-2">
           <div className="side-strip">
             <span className="icon-img"> <img src="images/man-icon.png" alt="image" /></span>
-            <p className="pb-0 mb-0 pl-3">Philomina</p>
+            <p className="pb-0 mb-0 pl-3">Admin</p>
             <div id="menu-toggle">
               <span>|</span>
               <img src="images/menu_leftn.png" />
             </div>
           </div>
         </div>
-        <h2 className="ml-3">Notification</h2>
+        <h2 className="ml-3 mt-3">Notification</h2>
         <div className="container mt-5">
           <div className="row">
             <div className="col-md-12">
-              <h3>Most Recent</h3>
+              <h3 class="col-12">Most Recent</h3>
               <div className="col-md-12">
                 {recentnotifications.length === 0 ? (
                   <div className="alert alert-success" role="alert">
@@ -87,7 +112,7 @@ export const Notification = () => {
         <div className="container mt-5">
           <div className="row">
             <div className="col-md-12">
-              <h3>Earlier</h3>
+              <h3 class="col-12">Earlier</h3>
               <div className="col-md-12">
                 {earliernotifications.map(notification => (
                   <div className="alert alert-warning alert-dismissible fade show" role="alert" key={notification.id}>
